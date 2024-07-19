@@ -15,6 +15,8 @@ public class OreJsonRegistration {
     public static final RegistryKey<PlacedFeature> DIRTMOND_LARGE_ORE_PLACED_KEY = RegistryKey.of(RegistryKeys.PLACED_FEATURE, new Identifier(Dirtmonds.MOD_ID,"dirtmond_ore_large"));
     public static void registerOreGeneration() {
         BiomeModifications.addFeature(BiomeSelectors.foundInOverworld(), GenerationStep.Feature.UNDERGROUND_ORES, DIRTMOND_SMALL_ORE_PLACED_KEY);
+        BiomeModifications.addFeature(BiomeSelectors.foundInOverworld(), GenerationStep.Feature.UNDERGROUND_ORES, DIRTMOND_MEDIUM_ORE_PLACED_KEY);
+        BiomeModifications.addFeature(BiomeSelectors.foundInOverworld(), GenerationStep.Feature.UNDERGROUND_ORES, DIRTMOND_LARGE_ORE_PLACED_KEY);
         System.out.println("Registered blocks");
     }
 }
