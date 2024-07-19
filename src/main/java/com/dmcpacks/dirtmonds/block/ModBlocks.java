@@ -1,7 +1,6 @@
 package com.dmcpacks.dirtmonds.block;
 
 import com.dmcpacks.dirtmonds.item.ModItemGroup;
-import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
@@ -34,7 +33,7 @@ public class ModBlocks {
 
     private static Item registerBlockItem(String name, Block block) {
         Item item = Registry.register(Registries.ITEM, new Identifier(Dirtmonds.MOD_ID, name),
-                new BlockItem(block, new FabricItemSettings()));
+                new BlockItem(block, new Item.Settings()));
         ItemGroupEvents.modifyEntriesEvent(ModItemGroup.DIRTMONDS).register(entries -> entries.add(item));
         return item;
     }

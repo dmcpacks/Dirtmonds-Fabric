@@ -2,55 +2,62 @@ package com.dmcpacks.dirtmonds.item;
 
 import com.dmcpacks.dirtmonds.config.ModConfigs;
 import com.dmcpacks.dirtmonds.item.custom.*;
-import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
-import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.item.TooltipType;
 import net.minecraft.item.*;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
+import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import com.dmcpacks.dirtmonds.Dirtmonds;
 
-public class ModItems {
+import java.util.List;
 
-    public static final Item DIRTMOND = registerItem("dirtmond", new Item(new FabricItemSettings()
+public class ModItems extends Item {
+
+    public static final Item DIRTMOND = registerItem("dirtmond", new Item(new Item.Settings()
             ));
 
     public static final Item DIRTMOND_SWORD = registerItem("dirtmond_sword", new ModSwordItem(ModToolMaterial.DIRTMOND, 3, -2.4f,
-            new FabricItemSettings()
+            new Item.Settings()
             ));
 
-    public static final Item DIRTMOND_SHOVEL = registerItem("dirtmond_shovel", new ShovelItem(ModToolMaterial.DIRTMOND, 0, -2.9f,
-            new FabricItemSettings()
+    public static final Item DIRTMOND_SHOVEL = registerItem("dirtmond_shovel", new ShovelItem(ModToolMaterial.DIRTMOND,
+            new Item.Settings()
             ));
 
     public static final Item DIRTMOND_AXE = registerItem("dirtmond_axe", new ModAxeItem(ModToolMaterial.DIRTMOND, 5f, -2.9f,
-            new FabricItemSettings()
+            new Item.Settings()
             ));
 
     public static final Item DIRTMOND_PICKAXE = registerItem("dirtmond_pickaxe", new ModPickaxeItem(ModToolMaterial.DIRTMOND, 1, -2.8f,
-            new FabricItemSettings()
+            new Item.Settings()
             ));
 
     public static final Item DIRTMOND_HOE = registerItem("dirtmond_hoe", new ModHoeItem(ModToolMaterial.DIRTMOND, 0, -1f,
-            new FabricItemSettings()
+            new Item.Settings()
             ));
 
     public static final Item DIRTMOND_HELMET = registerItem("dirtmond_helmet", new ModArmorItem(ModArmorMaterial.DIRTMOND, ArmorItem.Type.HELMET,
-            new FabricItemSettings()
+            new Item.Settings()
             ));
 
     public static final Item DIRTMOND_CHESTPLATE = registerItem("dirtmond_chestplate", new ModArmorItem(ModArmorMaterial.DIRTMOND, ArmorItem.Type.CHESTPLATE,
-            new FabricItemSettings()
+            new Item.Settings()
             ));
 
     public static final Item DIRTMOND_LEGGINGS = registerItem("dirtmond_leggings", new ModArmorItem(ModArmorMaterial.DIRTMOND, ArmorItem.Type.LEGGINGS,
-            new FabricItemSettings()
+            new Item.Settings()
             ));
 
     public static final Item DIRTMOND_BOOTS = registerItem("dirtmond_boots", new ModArmorItem(ModArmorMaterial.DIRTMOND, ArmorItem.Type.BOOTS,
-            new FabricItemSettings()
+            new Item.Settings()
             ));
+
+    public ModItems(Settings settings) {
+        super(settings);
+    }
 
     private static Item registerItem(String name, Item item) {
         return Registry.register(Registries.ITEM, new Identifier(Dirtmonds.MOD_ID, name), item);
@@ -76,6 +83,21 @@ public class ModItems {
     public static void addToItemGroup(Item item) {
         ItemGroupEvents.modifyEntriesEvent(ModItemGroup.DIRTMONDS).register(entries -> entries.add(item));
     }
+
+    @Override
+    public void appendTooltip(ItemStack itemStack, TooltipContext context, List<Text> tooltip, TooltipType type) {
+        tooltip.add(Text.translatable("item.tutorial.custom_item.tooltip"));
+    }
+
+//    public static void appendTooltip(List<Text> tooltip) {
+//        if(ModConfigs.fullsetbonus) {
+//            if (Screen.hasShiftDown()) {
+//                tooltip.add(Text.translatable("tooltip.dirtmonds.dirtmond_armor_shift"));
+//            } else {
+//                tooltip.add(Text.translatable("tooltip.dirtmonds.dirtmond_armor"));
+//            }
+//        }
+//    }
     public static void registerModItems() {
         addItemsToItemGroups();
         System.out.println("Registered Dirtmonds items");

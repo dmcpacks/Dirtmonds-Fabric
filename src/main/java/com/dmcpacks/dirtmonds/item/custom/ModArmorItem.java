@@ -4,7 +4,6 @@ import com.dmcpacks.dirtmonds.config.ModConfigs;
 import com.dmcpacks.dirtmonds.item.ModArmorMaterial;
 import com.google.common.collect.ImmutableMap;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.damage.DamageSource;
@@ -15,6 +14,9 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.ArmorMaterial;
 import net.minecraft.item.ItemStack;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
+import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.text.Text;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
@@ -28,22 +30,10 @@ public class ModArmorItem extends ArmorItem {
 
     private static final Map<ArmorMaterial, StatusEffect> MATERIAL_TO_EFFECT_MAP =
             (new ImmutableMap.Builder<ArmorMaterial, StatusEffect>())
-                    .put(ModArmorMaterial.DIRTMOND, StatusEffects.JUMP_BOOST).build();
+                    .put((ArmorMaterial) ModArmorMaterial.DIRTMOND, (StatusEffect) StatusEffects.JUMP_BOOST).build();
 
     public ModArmorItem(ArmorMaterial material, Type slot, Settings settings) {
-        super(material, slot, settings);
-    }
-
-    @Override
-
-    public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
-        if(ModConfigs.fullsetbonus) {
-            if (Screen.hasShiftDown()) {
-                tooltip.add(Text.translatable("tooltip.dirtmonds.dirtmond_armor_shift"));
-            } else {
-                tooltip.add(Text.translatable("tooltip.dirtmonds.dirtmond_armor"));
-            }
-        }
+        super((RegistryEntry<ArmorMaterial>) Registries.ARMOR_MATERIAL, slot, settings);
     }
 
     public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
@@ -76,7 +66,7 @@ public class ModArmorItem extends ArmorItem {
     private void addStatusEffectForMaterial(PlayerEntity player, ArmorMaterial mapArmorMaterial, StatusEffect mapStatusEffect) {
 
         if(hasCorrectArmorOn(mapArmorMaterial, player)) {
-            player.addStatusEffect(new StatusEffectInstance(mapStatusEffect, 10));
+            player.addStatusEffect(new StatusEffectInstance((RegistryEntry<StatusEffect>) mapStatusEffect, 10));
         }
     }
 
@@ -96,7 +86,7 @@ public class ModArmorItem extends ArmorItem {
         ArmorItem breastplate = ((ArmorItem)player.getInventory().getArmorStack(2).getItem());
         ArmorItem helmet = ((ArmorItem)player.getInventory().getArmorStack(3).getItem());
 
-        return helmet.getMaterial() == material && breastplate.getMaterial() == material &&
-                leggings.getMaterial() == material && boots.getMaterial() == material;
+        return helmet.getMaterial() == breastplate.getMaterial() && helmet.getMaterial() == leggings.getMaterial() &&
+                helmet.getMaterial() == boots.getMaterial();
     }
 }

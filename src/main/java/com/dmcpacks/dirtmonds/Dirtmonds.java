@@ -8,7 +8,6 @@ import com.dmcpacks.dirtmonds.item.custom.DirtmondFinder;
 import com.dmcpacks.dirtmonds.util.ModLootTableModifiers;
 import com.dmcpacks.dirtmonds.world.OreJsonRegistration;
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
@@ -21,7 +20,7 @@ public class Dirtmonds implements ModInitializer {
 
 	//dirtmond finder
 
-	public static final Item DIRTMOND_FINDER = new DirtmondFinder(new FabricItemSettings()
+	public static final Item DIRTMOND_FINDER = new DirtmondFinder(new Item.Settings()
 			.maxCount(1));
 
 	@Override
