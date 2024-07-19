@@ -22,7 +22,6 @@
     ]
   },
   "mixins": [
-    "dirtmonds.mixins.json"
   ],
 
   "depends": {

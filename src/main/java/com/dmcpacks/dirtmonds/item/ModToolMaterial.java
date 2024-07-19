@@ -1,7 +1,9 @@
 package com.dmcpacks.dirtmonds.item;
 
+import net.minecraft.block.Block;
 import net.minecraft.item.ToolMaterial;
 import net.minecraft.recipe.Ingredient;
+import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Lazy;
 
 import java.util.function.Supplier;
@@ -38,6 +40,11 @@ public enum  ModToolMaterial implements ToolMaterial {
 
     public float getAttackDamage() {
         return this.attackDamage;
+    }
+
+    @Override
+    public TagKey<Block> getInverseTag() {
+        return null;
     }
 
     public int getMiningLevel() {
