@@ -19,7 +19,7 @@ public class ModItems extends Item {
     public static final Item DIRTMOND = registerItem("dirtmond", new Item(new Item.Settings()
             ));
 
-    public static final Item DIRTMOND_SWORD = registerItem("dirtmond_sword", new ModSwordItem(ModToolMaterial.DIRTMOND, 3, -2.4f,
+    public static final Item DIRTMOND_SWORD = registerItem("dirtmond_sword", new ModSwordItem(ModToolMaterial.DIRTMOND,
             new Item.Settings()
             ));
 
@@ -27,15 +27,15 @@ public class ModItems extends Item {
             new Item.Settings()
             ));
 
-    public static final Item DIRTMOND_AXE = registerItem("dirtmond_axe", new ModAxeItem(ModToolMaterial.DIRTMOND, 5f, -2.9f,
+    public static final Item DIRTMOND_AXE = registerItem("dirtmond_axe", new ModAxeItem(ModToolMaterial.DIRTMOND,
             new Item.Settings()
             ));
 
-    public static final Item DIRTMOND_PICKAXE = registerItem("dirtmond_pickaxe", new ModPickaxeItem(ModToolMaterial.DIRTMOND, 1, -2.8f,
+    public static final Item DIRTMOND_PICKAXE = registerItem("dirtmond_pickaxe", new ModPickaxeItem(ModToolMaterial.DIRTMOND,
             new Item.Settings()
             ));
 
-    public static final Item DIRTMOND_HOE = registerItem("dirtmond_hoe", new ModHoeItem(ModToolMaterial.DIRTMOND, 0, -1f,
+    public static final Item DIRTMOND_HOE = registerItem("dirtmond_hoe", new ModHoeItem(ModToolMaterial.DIRTMOND,
             new Item.Settings()
             ));
 

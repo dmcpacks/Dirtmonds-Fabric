@@ -13,6 +13,7 @@ import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.ArmorMaterial;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
@@ -27,13 +28,17 @@ import java.util.Map;
 import java.util.Random;
 
 public class ModArmorItem extends ArmorItem {
+    protected final Type type;
+    protected final RegistryEntry<ArmorMaterial> material;
 
     private static final Map<ArmorMaterial, StatusEffect> MATERIAL_TO_EFFECT_MAP =
             (new ImmutableMap.Builder<ArmorMaterial, StatusEffect>())
-                    .put((ArmorMaterial) ModArmorMaterial.DIRTMOND, (StatusEffect) StatusEffects.JUMP_BOOST).build();
+                    .put(ModArmorMaterial.DIRTMOND.value(), StatusEffects.JUMP_BOOST.value()).build();
 
-    public ModArmorItem(ArmorMaterial material, Type slot, Settings settings) {
-        super((RegistryEntry<ArmorMaterial>) Registries.ARMOR_MATERIAL, slot, settings);
+    public ModArmorItem(RegistryEntry<ArmorMaterial> material, Type type, Item.Settings settings) {
+        super(material, type, settings);
+        this.material = material;
+        this.type = type;
     }
 
     public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {

@@ -1,94 +1,40 @@
 package com.dmcpacks.dirtmonds.item;
 
-import net.minecraft.item.ArmorItem;
-import net.minecraft.item.ArmorMaterial;
-import net.minecraft.item.ItemConvertible;
+import com.dmcpacks.dirtmonds.Dirtmonds;
+import net.minecraft.item.*;
 import net.minecraft.recipe.Ingredient;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
 import net.minecraft.registry.entry.RegistryEntry;
-import net.minecraft.sound.SoundEvent;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.util.Lazy;
-import net.minecraft.util.Util;
+import net.minecraft.sound.*;
+import net.minecraft.util.*;
 
 import java.util.EnumMap;
+import java.util.List;
 import java.util.function.Supplier;
 
-public enum ModArmorMaterial implements ArmorMaterial {
-//    DIRTMOND("dirtmond", 26, new int[]{2, 4, 5, 2}, 12, SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 1F, 0F, () -> {
-//        return Ingredient.ofItems(ModItems.DIRTMOND);
-//    });
-    DIRTMOND("dirtmond", 26, (EnumMap) Util.make(new EnumMap(ArmorItem.Type.class), (map) -> {
+public class ModArmorMaterial {
+public static final RegistryEntry<ArmorMaterial> DIRTMOND = register(
+        Dirtmonds.MOD_ID +  ":" + "dirtmond_armor",
+        Util.make(new EnumMap<>(ArmorItem.Type.class), map -> {
+        map.put(ArmorItem.Type.HELMET, 1);
+        map.put(ArmorItem.Type.CHESTPLATE, 4);
+        map.put(ArmorItem.Type.LEGGINGS, 3);
         map.put(ArmorItem.Type.BOOTS, 2);
-        map.put(ArmorItem.Type.LEGGINGS, 4);
-        map.put(ArmorItem.Type.CHESTPLATE, 5);
-        map.put(ArmorItem.Type.HELMET, 2);
-    }), 7, SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 1.0F, 0.0F, () -> {
-        return Ingredient.ofItems(new ItemConvertible[]{ModItems.DIRTMOND});
-    });
+        }),
+        0,
+        SoundEvents.ITEM_ARMOR_EQUIP_CHAIN,
+        2.0F,
+        0.2F,
+        () -> Ingredient.ofItems(ModItems.DIRTMOND));
 
-    private final String name;
-    private final int durabilityMultiplier;
-    private final EnumMap protectionAmounts;
-    private final int enchantability;
-    private final SoundEvent equipSound;
-    private final float toughness;
-    private final float knockbackResistance;
-    private final Lazy<Ingredient> repairIngredientSupplier;
+    private static RegistryEntry<ArmorMaterial> register(String id, EnumMap<ArmorItem.Type, Integer> defense, int enchantability, RegistryEntry<SoundEvent> equipSound, float toughness, float knockbackResistance, Supplier<Ingredient> repairIngredient) {
+        List<ArmorMaterial.Layer> list = List.of(new ArmorMaterial.Layer(Identifier.of(Dirtmonds.MOD_ID, "dirtmond_armor")));
 
-    private ModArmorMaterial(String name, int durabilityMultiplier, EnumMap protectionAmounts, int enchantability, RegistryEntry<SoundEvent> equipSound, float toughness, float knockbackResistance, Supplier<Ingredient> repairIngredientSupplier) {
-        this.name = name;
-        this.durabilityMultiplier = durabilityMultiplier;
-        this.protectionAmounts = protectionAmounts;
-        this.enchantability = enchantability;
-        this.equipSound = (SoundEvent) equipSound;
-        this.toughness = toughness;
-        this.knockbackResistance = knockbackResistance;
-        this.repairIngredientSupplier = new Lazy(repairIngredientSupplier);
+        EnumMap<ArmorItem.Type, Integer> enumMap = new EnumMap<>(ArmorItem.Type.class);
+        for (ArmorItem.Type type : ArmorItem.Type.values()) {
+            enumMap.put(type, defense.get(type));
+        }
+        return Registry.registerReference(Registries.ARMOR_MATERIAL, Identifier.of(Dirtmonds.MOD_ID, "dirtmond_armor"), new ArmorMaterial(enumMap, enchantability, equipSound, repairIngredient, list, toughness, knockbackResistance));
     }
-
-//    public int getDurability(EquipmentSlot slot) {
-//        return BASE_DURABILITY[slot.getEntitySlotId()] * this.durabilityMultiplier;
-//    }
-//
-//    public int getProtection(EquipmentSlot slot) {
-//        return this.protectionAmounts[slot.getEntitySlotId()];
-//    }
-    private static final EnumMap BASE_DURABILITY = (EnumMap)Util.make(new EnumMap(ArmorItem.Type.class), (map) -> {
-        map.put(ArmorItem.Type.BOOTS, 11);
-        map.put(ArmorItem.Type.LEGGINGS, 13);
-        map.put(ArmorItem.Type.CHESTPLATE, 14);
-        map.put(ArmorItem.Type.HELMET, 9);
-    });
-
-    public int getDurability(ArmorItem.Type type) {
-        return (Integer)BASE_DURABILITY.get(type) * this.durabilityMultiplier;
-    }
-
-    public int getProtection(ArmorItem.Type type) {
-        return (Integer)this.protectionAmounts.get(type);
-    }
-    public int getEnchantability() {
-        return this.enchantability;
-    }
-
-    public SoundEvent getEquipSound() {
-        return this.equipSound;
-    }
-
-    public Ingredient getRepairIngredient() {
-        return (Ingredient)this.repairIngredientSupplier.get();
-    }
-
-    public String getName() {
-        return this.name;
-    }
-
-    public float getToughness() {
-        return this.toughness;
-    }
-
-    public float getKnockbackResistance() {
-        return this.knockbackResistance;
-    }
-
 }

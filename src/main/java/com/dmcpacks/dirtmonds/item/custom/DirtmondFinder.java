@@ -3,6 +3,7 @@ package com.dmcpacks.dirtmonds.item.custom;
 import com.dmcpacks.dirtmonds.block.ModBlocks;
 import com.dmcpacks.dirtmonds.config.ModConfigs;
 import net.minecraft.block.Block;
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemUsageContext;
@@ -43,8 +44,7 @@ public class DirtmondFinder extends Item {
                 player.sendMessage(Text.literal("Hmm, this item doesn't seem to work"), true);
             }
     }
-        context.getStack().damage( 1, context.getPlayer(),
-                (player) -> player.sendToolBreakStatus(player.getActiveHand()));
+        context.getStack().damage( 1, context.getPlayer(), EquipmentSlot.MAINHAND);
 
         return super.useOnBlock(context);
     }
