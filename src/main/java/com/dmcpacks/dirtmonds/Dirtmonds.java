@@ -18,11 +18,6 @@ public class Dirtmonds implements ModInitializer {
 
 	public static final String MOD_ID = "dirtmonds";
 
-	//dirtmond finder
-
-	public static final Item DIRTMOND_FINDER = new DirtmondFinder(new Item.Settings()
-			.maxCount(1));
-
 	@Override
 	public void onInitialize() {
 		ModConfigs.registerConfigs();
@@ -33,6 +28,9 @@ public class Dirtmonds implements ModInitializer {
 		OreJsonRegistration.registerOreGeneration();
 
 		if(ModConfigs.dirtmondfinder) {
+			Item DIRTMOND_FINDER = new DirtmondFinder(new Item.Settings()
+					.maxCount(1));
+			ModItems.addToItemGroup(DIRTMOND_FINDER);
 			Registry.register(Registries.ITEM, new Identifier("dirtmonds", "dirtmond_finder"), DIRTMOND_FINDER);
 		}
 

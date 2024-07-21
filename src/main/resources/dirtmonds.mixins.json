@@ -1,11 +1,14 @@
 {
-  "required": false,
+  "required": true,
   "minVersion": "0.8",
   "package": "com.dmcpacks.dirtmonds.mixin",
-  "compatibilityLevel": "JAVA_17",
+  "compatibilityLevel": "JAVA_21",
   "mixins": [
+    "SimpleRegistryMixin"
   ],
   "client": [
+  ],
+  "server": [
   ],
   "injectors": {
     "defaultRequire": 1

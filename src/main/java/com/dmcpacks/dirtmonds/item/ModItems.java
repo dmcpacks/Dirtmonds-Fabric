@@ -2,6 +2,7 @@ package com.dmcpacks.dirtmonds.item;
 
 import com.dmcpacks.dirtmonds.config.ModConfigs;
 import com.dmcpacks.dirtmonds.item.custom.*;
+import net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.item.TooltipType;
@@ -14,7 +15,7 @@ import com.dmcpacks.dirtmonds.Dirtmonds;
 
 import java.util.List;
 
-public class ModItems extends Item {
+public class ModItems {
 
     public static final Item DIRTMOND = registerItem("dirtmond", new Item(new Item.Settings()
             ));
@@ -40,26 +41,22 @@ public class ModItems extends Item {
             ));
 
     public static final Item DIRTMOND_HELMET = registerItem("dirtmond_helmet", new ModArmorItem(ModArmorMaterial.DIRTMOND, ArmorItem.Type.HELMET,
-            new Item.Settings()
+            new Item.Settings().maxCount(1)
             ));
 
     public static final Item DIRTMOND_CHESTPLATE = registerItem("dirtmond_chestplate", new ModArmorItem(ModArmorMaterial.DIRTMOND, ArmorItem.Type.CHESTPLATE,
-            new Item.Settings()
+            new Item.Settings().maxCount(1)
             ));
 
     public static final Item DIRTMOND_LEGGINGS = registerItem("dirtmond_leggings", new ModArmorItem(ModArmorMaterial.DIRTMOND, ArmorItem.Type.LEGGINGS,
-            new Item.Settings()
+            new Item.Settings().maxCount(1)
             ));
 
     public static final Item DIRTMOND_BOOTS = registerItem("dirtmond_boots", new ModArmorItem(ModArmorMaterial.DIRTMOND, ArmorItem.Type.BOOTS,
-            new Item.Settings()
+            new Item.Settings().maxCount(1)
             ));
 
-    public ModItems(Settings settings) {
-        super(settings);
-    }
-
-    private static Item registerItem(String name, Item item) {
+    public static Item registerItem(String name, Item item) {
         return Registry.register(Registries.ITEM, new Identifier(Dirtmonds.MOD_ID, name), item);
     }
 
@@ -74,30 +71,13 @@ public class ModItems extends Item {
         addToItemGroup(DIRTMOND_CHESTPLATE);
         addToItemGroup(DIRTMOND_LEGGINGS);
         addToItemGroup(DIRTMOND_BOOTS);
-
-        if(ModConfigs.dirtmondfinder) {
-            addToItemGroup(Dirtmonds.DIRTMOND_FINDER);
-        }
     }
 
     public static void addToItemGroup(Item item) {
         ItemGroupEvents.modifyEntriesEvent(ModItemGroup.DIRTMONDS).register(entries -> entries.add(item));
     }
 
-    @Override
-    public void appendTooltip(ItemStack itemStack, TooltipContext context, List<Text> tooltip, TooltipType type) {
-        tooltip.add(Text.translatable("item.tutorial.custom_item.tooltip"));
-    }
 
-//    public static void appendTooltip(List<Text> tooltip) {
-//        if(ModConfigs.fullsetbonus) {
-//            if (Screen.hasShiftDown()) {
-//                tooltip.add(Text.translatable("tooltip.dirtmonds.dirtmond_armor_shift"));
-//            } else {
-//                tooltip.add(Text.translatable("tooltip.dirtmonds.dirtmond_armor"));
-//            }
-//        }
-//    }
     public static void registerModItems() {
         addItemsToItemGroups();
         System.out.println("Registered Dirtmonds items");

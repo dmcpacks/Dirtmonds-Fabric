@@ -4,6 +4,7 @@ import com.dmcpacks.dirtmonds.config.ModConfigs;
 import com.dmcpacks.dirtmonds.item.ModArmorMaterial;
 import com.google.common.collect.ImmutableMap;
 import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.item.TooltipType;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.damage.DamageSource;
@@ -31,10 +32,6 @@ public class ModArmorItem extends ArmorItem {
     protected final Type type;
     protected final RegistryEntry<ArmorMaterial> material;
 
-    private static final Map<ArmorMaterial, StatusEffect> MATERIAL_TO_EFFECT_MAP =
-            (new ImmutableMap.Builder<ArmorMaterial, StatusEffect>())
-                    .put(ModArmorMaterial.DIRTMOND.value(), StatusEffects.JUMP_BOOST.value()).build();
-
     public ModArmorItem(RegistryEntry<ArmorMaterial> material, Type type, Item.Settings settings) {
         super(material, type, settings);
         this.material = material;
@@ -44,35 +41,18 @@ public class ModArmorItem extends ArmorItem {
     public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
         if(!world.isClient()) {
             if(entity instanceof PlayerEntity) {
-                PlayerEntity player = (PlayerEntity)entity;
-
-                if(hasFullSuitOfArmorOn(player)) {
-                    if(ModConfigs.fullsetbonus) {
-                        evaluateArmorEffects(player);
+                PlayerEntity player = (PlayerEntity) entity;
+                if (ModConfigs.fullsetbonus) {
+                    if (hasFullSuitOfArmorOn(player)) {
+                        if (hasCorrectArmorOn(ModArmorMaterial.DIRTMOND.value(), player)) {
+                            player.addStatusEffect(new StatusEffectInstance(StatusEffects.JUMP_BOOST, 0, 1));
+                        }
                     }
                 }
             }
         }
 
         super.inventoryTick(stack, world, entity, slot, selected);
-    }
-
-    private void evaluateArmorEffects(PlayerEntity player) {
-        for (Map.Entry<ArmorMaterial, StatusEffect> entry : MATERIAL_TO_EFFECT_MAP.entrySet()) {
-            ArmorMaterial mapArmorMaterial = entry.getKey();
-            StatusEffect mapStatusEffect = entry.getValue();
-
-            if(hasCorrectArmorOn(mapArmorMaterial, player)) {
-                addStatusEffectForMaterial(player, mapArmorMaterial, mapStatusEffect);
-            }
-        }
-    }
-
-    private void addStatusEffectForMaterial(PlayerEntity player, ArmorMaterial mapArmorMaterial, StatusEffect mapStatusEffect) {
-
-        if(hasCorrectArmorOn(mapArmorMaterial, player)) {
-            player.addStatusEffect(new StatusEffectInstance((RegistryEntry<StatusEffect>) mapStatusEffect, 10));
-        }
     }
 
     private boolean hasFullSuitOfArmorOn(PlayerEntity player) {
@@ -84,14 +64,25 @@ public class ModArmorItem extends ArmorItem {
         return !helmet.isEmpty() && !breastplate.isEmpty()
                 && !leggings.isEmpty() && !boots.isEmpty();
     }
-
+    @Override
+    public void appendTooltip(ItemStack itemStack, TooltipContext context, List<Text> tooltip, TooltipType type) {
+        if(ModConfigs.fullsetbonus) {
+            if (Screen.hasShiftDown()) {
+                tooltip.add(Text.translatable("tooltip.dirtmonds.dirtmond_armor_shift"));
+            } else {
+                tooltip.add(Text.translatable("tooltip.dirtmonds.dirtmond_armor"));
+            }
+        }
+    }
     private boolean hasCorrectArmorOn(ArmorMaterial material, PlayerEntity player) {
         ArmorItem boots = ((ArmorItem)player.getInventory().getArmorStack(0).getItem());
         ArmorItem leggings = ((ArmorItem)player.getInventory().getArmorStack(1).getItem());
         ArmorItem breastplate = ((ArmorItem)player.getInventory().getArmorStack(2).getItem());
         ArmorItem helmet = ((ArmorItem)player.getInventory().getArmorStack(3).getItem());
 
-        return helmet.getMaterial() == breastplate.getMaterial() && helmet.getMaterial() == leggings.getMaterial() &&
-                helmet.getMaterial() == boots.getMaterial();
+        return helmet.getMaterial().value() == material
+                && breastplate.getMaterial().value() == material
+                && leggings.getMaterial().value() == material
+                && boots.getMaterial().value() == material;
     }
 }

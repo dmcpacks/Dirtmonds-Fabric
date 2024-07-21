@@ -17,44 +17,46 @@ public class ModLootTableModifiers {
     private static final Identifier VILLAGE_WEAPONSMITH_ID = new Identifier("minecraft", "chests/village/village_weaponsmith");
 
     public static void modifyLootTables() {
+        // 637898971158033062
+        // /tp 6693 67 9403
 
         LootTableEvents.MODIFY.register((key, tableBuilder, source) -> {
-            if(VILLAGE_TOOLSMITH_ID.equals(key)) {
-                LootPool.Builder poolBuilder = LootPool.builder()
-                        .rolls(ConstantLootNumberProvider.create(3))
-                        .conditionally(RandomChanceLootCondition.builder(0.7f)) //50% chance drop
-                        .with(ItemEntry.builder(ModItems.DIRTMOND))
-                        .apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1.0f,2.0f)).build());
-                tableBuilder.pool(poolBuilder.build());
-            }
-            if(VILLAGE_TOOLSMITH_ID.equals(key)) {
+            if(VILLAGE_TOOLSMITH_ID.equals(key.getValue())) {
                 LootPool.Builder poolBuilder = LootPool.builder()
                         .rolls(ConstantLootNumberProvider.create(2))
-                        .conditionally(RandomChanceLootCondition.builder(0.6f)) //50% chance drop
+                        .conditionally(RandomChanceLootCondition.builder(0.7f)) //0.7% chance drop
+                        .with(ItemEntry.builder(ModItems.DIRTMOND))
+                        .apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(0.0f,2.0f)).build());
+                tableBuilder.pool(poolBuilder.build());
+            }
+            if(VILLAGE_TOOLSMITH_ID.equals(key.getValue())) {
+                LootPool.Builder poolBuilder = LootPool.builder()
+                        .rolls(ConstantLootNumberProvider.create(2))
+                        .conditionally(RandomChanceLootCondition.builder(0.6f)) //0.6% chance drop
                         .with(ItemEntry.builder(ModItems.DIRTMOND_CHESTPLATE))
                         .with(ItemEntry.builder(ModItems.DIRTMOND_BOOTS))
                         .with(ItemEntry.builder(ModItems.DIRTMOND_LEGGINGS))
                         .with(ItemEntry.builder(ModItems.DIRTMOND_HELMET))
-                        .apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1.0f,1.0f)).build());
+                        .apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(0.0f,1.0f)).build());
                 tableBuilder.pool(poolBuilder.build());
             }
-            if(VILLAGE_WEAPONSMITH_ID.equals(key)) {
-                LootPool.Builder poolBuilder = LootPool.builder()
-                        .rolls(ConstantLootNumberProvider.create(3))
-                        .conditionally(RandomChanceLootCondition.builder(0.65f)) //50% chance drop
-                        .with(ItemEntry.builder(ModItems.DIRTMOND))
-                        .apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1.0f,2.0f)).build());
-                tableBuilder.pool(poolBuilder.build());
-            }
-            if(VILLAGE_WEAPONSMITH_ID.equals(key)) {
+            if(VILLAGE_WEAPONSMITH_ID.equals(key.getValue())) {
                 LootPool.Builder poolBuilder = LootPool.builder()
                         .rolls(ConstantLootNumberProvider.create(2))
-                        .conditionally(RandomChanceLootCondition.builder(0.75f)) //50% chance drop
+                        .conditionally(RandomChanceLootCondition.builder(0.65f)) //0.65% chance drop
+                        .with(ItemEntry.builder(ModItems.DIRTMOND))
+                        .apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(0.0f,2.0f)).build());
+                tableBuilder.pool(poolBuilder.build());
+            }
+            if(VILLAGE_WEAPONSMITH_ID.equals(key.getValue())) {
+                LootPool.Builder poolBuilder = LootPool.builder()
+                        .rolls(ConstantLootNumberProvider.create(2))
+                        .conditionally(RandomChanceLootCondition.builder(0.7f)) //0.7% chance drop
                         .with(ItemEntry.builder(ModItems.DIRTMOND_CHESTPLATE))
                         .with(ItemEntry.builder(ModItems.DIRTMOND_BOOTS))
                         .with(ItemEntry.builder(ModItems.DIRTMOND_LEGGINGS))
                         .with(ItemEntry.builder(ModItems.DIRTMOND_HELMET))
-                        .apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1.0f,1.0f)).build());
+                        .apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(0.0f,1.0f)).build());
                 tableBuilder.pool(poolBuilder.build());
             }
         });
