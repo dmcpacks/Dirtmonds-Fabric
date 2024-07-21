@@ -31,7 +31,7 @@ public class Dirtmonds implements ModInitializer {
 			Item DIRTMOND_FINDER = new DirtmondFinder(new Item.Settings()
 					.maxCount(1));
 			ModItems.addToItemGroup(DIRTMOND_FINDER);
-			Registry.register(Registries.ITEM, new Identifier("dirtmonds", "dirtmond_finder"), DIRTMOND_FINDER);
+			Registry.register(Registries.ITEM, Identifier.of("dirtmonds", "dirtmond_finder"), DIRTMOND_FINDER);
 		}
 
 

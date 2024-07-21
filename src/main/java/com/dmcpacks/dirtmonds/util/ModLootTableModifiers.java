@@ -13,8 +13,8 @@ import net.minecraft.util.Identifier;
 import java.util.List;
 
 public class ModLootTableModifiers {
-    private static final Identifier VILLAGE_TOOLSMITH_ID = new Identifier("minecraft", "chests/village/village_toolsmith");
-    private static final Identifier VILLAGE_WEAPONSMITH_ID = new Identifier("minecraft", "chests/village/village_weaponsmith");
+    private static final Identifier VILLAGE_TOOLSMITH_ID = Identifier.ofVanilla("chests/village/village_toolsmith");
+    private static final Identifier VILLAGE_WEAPONSMITH_ID = Identifier.ofVanilla("chests/village/village_weaponsmith");
 
     public static void modifyLootTables() {
         // 637898971158033062

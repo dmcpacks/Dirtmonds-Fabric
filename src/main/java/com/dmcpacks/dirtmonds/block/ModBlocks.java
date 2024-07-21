@@ -28,11 +28,11 @@ public class ModBlocks {
 
     private static Block registerBlock(String name, Block block) {
         registerBlockItem(name, block);
-        return Registry.register(Registries.BLOCK, new Identifier(Dirtmonds.MOD_ID, name), block);
+        return Registry.register(Registries.BLOCK, Identifier.of(Dirtmonds.MOD_ID, name), block);
     }
 
     private static Item registerBlockItem(String name, Block block) {
-        Item item = Registry.register(Registries.ITEM, new Identifier(Dirtmonds.MOD_ID, name),
+        Item item = Registry.register(Registries.ITEM, Identifier.of(Dirtmonds.MOD_ID, name),
                 new BlockItem(block, new Item.Settings()));
         ItemGroupEvents.modifyEntriesEvent(ModItemGroup.DIRTMONDS).register(entries -> entries.add(item));
         return item;

@@ -16,7 +16,7 @@ import net.minecraft.util.Identifier;
 public class ModItemGroup {
 
 
-    public static final RegistryKey<ItemGroup> DIRTMONDS = RegistryKey.of(RegistryKeys.ITEM_GROUP, new Identifier(Dirtmonds.MOD_ID, "dirtmonds_group"));
+    public static final RegistryKey<ItemGroup> DIRTMONDS = RegistryKey.of(RegistryKeys.ITEM_GROUP, Identifier.of(Dirtmonds.MOD_ID, "dirtmonds_group"));
 
     public static void registerItemGroup() {
         Registry.register(Registries.ITEM_GROUP, DIRTMONDS, FabricItemGroup.builder()

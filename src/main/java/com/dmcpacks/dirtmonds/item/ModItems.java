@@ -1,19 +1,12 @@
 package com.dmcpacks.dirtmonds.item;
 
-import com.dmcpacks.dirtmonds.config.ModConfigs;
 import com.dmcpacks.dirtmonds.item.custom.*;
-import net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.item.TooltipType;
 import net.minecraft.item.*;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
-import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import com.dmcpacks.dirtmonds.Dirtmonds;
-
-import java.util.List;
 
 public class ModItems {
 
@@ -57,7 +50,7 @@ public class ModItems {
             ));
 
     public static Item registerItem(String name, Item item) {
-        return Registry.register(Registries.ITEM, new Identifier(Dirtmonds.MOD_ID, name), item);
+        return Registry.register(Registries.ITEM, Identifier.of(Dirtmonds.MOD_ID, name), item);
     }
 
     public static void addItemsToItemGroups() {

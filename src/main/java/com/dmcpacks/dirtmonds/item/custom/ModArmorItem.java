@@ -2,13 +2,8 @@ package com.dmcpacks.dirtmonds.item.custom;
 
 import com.dmcpacks.dirtmonds.config.ModConfigs;
 import com.dmcpacks.dirtmonds.item.ModArmorMaterial;
-import com.google.common.collect.ImmutableMap;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.item.TooltipType;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
@@ -16,17 +11,12 @@ import net.minecraft.item.ArmorItem;
 import net.minecraft.item.ArmorMaterial;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.text.Text;
 import net.minecraft.world.World;
-import org.jetbrains.annotations.Nullable;
+import net.minecraft.item.tooltip.TooltipType;
 
-import javax.swing.*;
 import java.util.List;
-import java.util.Map;
-import java.util.Random;
 
 public class ModArmorItem extends ArmorItem {
     protected final Type type;
