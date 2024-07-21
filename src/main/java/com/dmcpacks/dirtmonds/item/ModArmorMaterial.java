@@ -24,8 +24,8 @@ public static final RegistryEntry<ArmorMaterial> DIRTMOND = register(
         }),
         0,
         SoundEvents.ITEM_ARMOR_EQUIP_CHAIN,
-        2.0F,
-        0.2F,
+        1.0F,
+        0.0F,
         () -> Ingredient.ofItems(ModItems.DIRTMOND));
 
     private static RegistryEntry<ArmorMaterial> register(String id, EnumMap<ArmorItem.Type, Integer> defense, int enchantability, RegistryEntry<SoundEvent> equipSound, float toughness, float knockbackResistance, Supplier<Ingredient> repairIngredient) {
