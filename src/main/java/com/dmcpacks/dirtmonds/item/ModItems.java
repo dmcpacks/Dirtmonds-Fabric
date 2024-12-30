@@ -49,6 +49,8 @@ public class ModItems {
             new Item.Settings().maxCount(1)
             ));
 
+//    public static final Item DIRTMOND_ARMOR_TRIM = registerItem("dirtmond_armor_trim", new);
+
     public static Item registerItem(String name, Item item) {
         return Registry.register(Registries.ITEM, Identifier.of(Dirtmonds.MOD_ID, name), item);
     }

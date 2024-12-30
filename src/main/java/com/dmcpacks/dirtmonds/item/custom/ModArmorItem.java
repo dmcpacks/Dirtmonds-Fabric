@@ -13,6 +13,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.text.Text;
+import net.minecraft.util.StringIdentifiable;
 import net.minecraft.world.World;
 import net.minecraft.item.tooltip.TooltipType;
 
@@ -75,4 +76,6 @@ public class ModArmorItem extends ArmorItem {
                 && leggings.getMaterial().value() == material
                 && boots.getMaterial().value() == material;
     }
+
+
 }
